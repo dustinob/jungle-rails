@@ -22,6 +22,38 @@
           <dd><%= @product.quantity %></dd>
           <dt>Price</dt>
           <dd><%= @product.price %></dd>
+          <% if !current_user %>
+          <% else %>
+            <%= form_for @review, url: product_reviews_path(@product) do |r| %>
+              <p>
+                <%= r.text_area :description %>
+              </p>
+              <p>
+                <%= r.select( :rating, [['Exellent', 5],['Good', 4],['Neutral', 3],['Bad', 2],['Terrible', 1]]) %>
+              </p>
+              <p>
+                <%= r.submit %>
+              </p>
+            <% end %>
+          <% end %>
+
+          <dt>Reviews</dt>
+            <% @product.reviews.reverse.each do |review| %>
+            <dt> Description</dt>
+            <dd><%= review.description %></dd>
+            <dt>User</dt>
+            <dd><%= review.user_id %></dd>
+            <dt> Rating</dt>
+            <dd><%= review.rating %></dd>
+            <% if !current_user || current_user.id != review.user_id %>
+              <% else %>
+                <dt>
+                  <%= link_to 'Destroy Review', [review.product, review],
+                  method: :delete,
+                  data: { confirm: 'Are you sure?' } %>
+                </dt>
+              <% end %>
+            <% end %>
         </dl>
       </div>
     </div>

@@ -31,6 +31,7 @@ cat3 = Category.find_or_create_by! name: 'Furniture'
 
 ## PRODUCTS
 
+
 puts "Re-creating Products ..."
 
 Product.destroy_all
@@ -131,6 +132,31 @@ cat3.products.create!({
   quantity: 23,
   price: 2_483.75
 })
+
+puts "Re-creating Reviews"
+
+Review.destroy_all
+
+Review.create!({
+  product_id: 2,
+  user_id: 4,
+  description: "This is a sweet product.",
+  rating: 1
+  })
+
+Review.create!({
+  product_id: 5,
+  user_id: 2,
+  description: "This product sucks.",
+  rating: 3
+  })
+
+Review.create!({
+  product_id: 7,
+  user_id: 6,
+  description: "What is this?.",
+  rating: 5
+  })
 
 
 puts "DONE!"
