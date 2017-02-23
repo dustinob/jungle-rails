@@ -1,4 +1,4 @@
-class Admin::ProductsController < ApplicationController
+class Admin::ProductsController < ApplicationController  
   before_filter :authenticate
 
   def index
